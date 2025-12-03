@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="board-container">
+    <div class="board-header">
+        <h2>My Boards</h2>
+        <button id="create-board-btn" class="btn btn-primary">Create Board</button>
+    </div>
+    
+    <div class="boards-grid">
+        {% for board in boards %}
+        <div class="board-card" data-board-id="{{ board.id }}">
+            <h3>{{ board.title }}</h3>
+            <p class="board-description">{{ board.description or "No description" }}</p>
+            <div class="board-meta">
+                <span class="board-owner">Owner: {{ board.owner.username if board.owner else 'You' }}</span>
+                {% if board.members %}
+                <span class="board-members">👥 {{ board.members|length }} members</span>
+                {% endif %}
+            </div>
+            <div class="board-actions">
+                <button class="btn-open-board" data-board-id="{{ board.id }}">Open</button>
+                {% if board.user_id == current_user.id %}
+                <button class="btn-delete-board" data-board-id="{{ board.id }}">Delete</button>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Board Modal -->
+<div id="board-modal" class="modal">
+    <div class="modal-content" style="max-width: 95%; height: 90vh;">
+        <span class="close">&times;</span>
+        <div id="board-content">
+            <!-- Board content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Create Board Modal -->
+<div id="create-board-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Create New Board</h3>
+        <form id="create-board-form">
+            <div class="form-group">
+                <label for="board-title">Board Title:</label>
+                <input type="text" id="board-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="board-description">Description (optional):</label>
+                <textarea id="board-description" name="description" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Board</button>
+        </form>
+    </div>
+</div>
+
+<!-- Board Settings Modal -->
+<div id="board-settings-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="board-settings-content">
+            <!-- Board settings will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Add Member Modal -->
+<div id="add-member-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Add Member to Board</h3>
+        <div class="form-group">
+            <label for="member-search">Search users by username or email:</label>
+            <input type="text" id="member-search" placeholder="Start typing to search users..." class="form-input">
+            <div id="user-search-results" class="search-results"></div>
+        </div>
+        <div id="selected-user" class="selected-user" style="display: none;">
+            <h4>Selected User:</h4>
+            <div class="user-card">
+                <span class="user-username" id="selected-username"></span>
+                <span class="user-email" id="selected-email"></span>
+                <button onclick="clearSelectedUser()" class="btn btn-secondary">Change</button>
+            </div>
+            <button onclick="addSelectedUserToBoard()" class="btn btn-primary">Add to Board</button>
+        </div>
+    </div>
+</div>
+
+<!-- Card Details Modal -->
+<div id="card-modal" class="modal">
+    <div class="modal-content card-modal-content">
+        <span class="close">&times;</span>
+        <div id="card-modal-body">
+            <!-- Card details will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Label Modal -->
+<div id="label-modal" class="modal">
+    <div class="modal-content label-modal-content">
+        <span class="close">&times;</span>
+        <div id="label-modal-body">
+            <!-- Label manager will be loaded here -->
+        </div>
+    </div>
+</div>
+{% endblock %}

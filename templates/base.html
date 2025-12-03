@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>Trello Clone</h2>
+            </div>
+            {% if current_user.is_authenticated %}
+            <div class="nav-search">
+                <div class="search-container">
+                    <input type="text" id="global-search" placeholder="Search cards, boards, labels..." class="search-input">
+                    <button onclick="performSearch()" class="btn-search">🔍</button>
+                    <div id="search-results" class="search-results-dropdown"></div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="nav-links">
+                {% if current_user.is_authenticated %}
+                    <span>Welcome, {{ current_user.username }}</span>
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Login</a>
+                    <a href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+    
+    <!-- Search Modal -->
+    <div id="search-modal" class="modal">
+        <div class="modal-content search-modal-content">
+            <span class="close">&times;</span>
+            <div class="search-modal-header">
+                <h3>Search Results</h3>
+                <div class="search-stats" id="search-stats"></div>
+            </div>
+            <div id="search-modal-body" class="search-modal-body">
+                <!-- Search results will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
