@@ -1749,5 +1749,6 @@ def search_in_board(board_id):
         print(f"DEBUG: Error in board search: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
-if __name__ == "__main__":
-    app.run()
+@app.route("/")
+def home():
+    return "Hello from Render!"
