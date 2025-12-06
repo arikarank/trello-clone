@@ -1748,3 +1748,6 @@ def search_in_board(board_id):
     except Exception as e:
         print(f"DEBUG: Error in board search: {str(e)}")
         return jsonify({'error': str(e)}), 500
+
+if __name__ == "__main__":
+    app.run()
