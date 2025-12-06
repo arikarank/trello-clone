@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeModals();
     initializeBoardEvents();
     initializeFormSubmissions();
+    initializeSearch(); // Initialize search functionality
 });
 
 function initializeModals() {
@@ -2996,12 +2997,3 @@ function renderBoardView(board) {
         </div>
     `;
 }
-
-// Initialize search when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - initializing Trello Clone');
-    initializeModals();
-    initializeBoardEvents();
-    initializeFormSubmissions();
-    initializeSearch(); // Initialize search functionality
-});

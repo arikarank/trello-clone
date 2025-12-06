@@ -51,6 +51,14 @@ class List(db.Model):
     
     cards = db.relationship('Card', backref='list', lazy=True, cascade='all, delete-orphan')
 
+# Association table for many-to-many relationship between cards and labels
+# Must be defined before Card class since Card references it
+card_labels = db.Table('card_labels',
+    db.Column('card_id', db.Integer, db.ForeignKey('card.id'), primary_key=True),
+    db.Column('label_id', db.Integer, db.ForeignKey('label.id'), primary_key=True),
+    db.Column('added_at', db.DateTime, default=datetime.utcnow)
+)
+
 class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -63,6 +71,7 @@ class Card(db.Model):
     
     attachments = db.relationship('FileAttachment', backref='card', lazy=True, cascade='all, delete-orphan')
     checklists = db.relationship('Checklist', backref='card', lazy=True, cascade='all, delete-orphan')
+    labels = db.relationship('Label', secondary=card_labels, backref='cards', lazy=True)
 
 class FileAttachment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -102,10 +111,3 @@ class Label(db.Model):
     color = db.Column(db.String(7), nullable=False)  # Hex color code
     board_id = db.Column(db.Integer, db.ForeignKey('board.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-# Association table for many-to-many relationship between cards and labels
-card_labels = db.Table('card_labels',
-    db.Column('card_id', db.Integer, db.ForeignKey('card.id'), primary_key=True),
-    db.Column('label_id', db.Integer, db.ForeignKey('label.id'), primary_key=True),
-    db.Column('added_at', db.DateTime, default=datetime.utcnow)
-)
