@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - initializing Trello Clone');
+    console.log('DOM loaded - initializing TaskHive');
     initializeModals();
     initializeBoardEvents();
     initializeFormSubmissions();

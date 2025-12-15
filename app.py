@@ -20,7 +20,7 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///trello.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///taskhive.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Configuration for file uploads

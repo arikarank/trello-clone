@@ -1,6 +1,6 @@
-# Trello Clone
+# TaskHive
 
-A full-featured Trello clone built with Flask, providing a kanban-style project management application with boards, lists, cards, and collaborative features.
+A full-featured TaskHive application built with Flask, providing a kanban-style project management application with boards, lists, cards, and collaborative features.
 
 ## Features
 
@@ -52,7 +52,7 @@ A full-featured Trello clone built with Flask, providing a kanban-style project 
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd trello_clone
+   cd taskhive
    ```
 
 2. **Create a virtual environment** (recommended)
@@ -102,7 +102,7 @@ The application uses default configuration. For production, consider:
 ## Project Structure
 
 ```
-trello_clone/
+taskhive/
 ├── app.py                 # Main Flask application
 ├── models.py              # Database models
 ├── requirements.txt       # Python dependencies
@@ -233,7 +233,7 @@ app.run(debug=False)
 ```
 
 ### Resetting the Database
-If you need to reset the database, you can use the `reset_db.py` script (if available) or delete the `instance/trello.db` file and restart the application.
+If you need to reset the database, you can use the `reset_db.py` script (if available) or delete the `instance/taskhive.db` file and restart the application.
 
 ## License
 
